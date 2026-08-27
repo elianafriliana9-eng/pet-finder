@@ -1,0 +1,8 @@
+# StreetPet SEO Robots.txt
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /shelter/dashboard
+Disallow: /messages
+
+Sitemap: https://streetpet.org/sitemap.xml
