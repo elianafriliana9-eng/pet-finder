@@ -1,8 +1,8 @@
 [phases.setup]
-nixPkgs = ["php83", "php83Packages.composer", "php83Extensions.pdo", "php83Extensions.pdo_mysql", "php83Extensions.pdo_sqlite", "php83Extensions.pdo_pgsql", "php83Extensions.mbstring", "php83Extensions.gd", "php83Extensions.fileinfo"]
+nixPkgs = ["php84", "php84Packages.composer", "php84Extensions.pdo", "php84Extensions.pdo_mysql", "php84Extensions.pdo_sqlite", "php84Extensions.pdo_pgsql", "php84Extensions.mbstring", "php84Extensions.gd", "php84Extensions.fileinfo"]
 
 [phases.install]
-cmds = ["composer install --no-dev --optimize-autoloader --no-interaction --ignore-platform-req=ext-gd"]
+cmds = ["COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader --no-interaction --ignore-platform-req=ext-gd"]
 
 [phases.build]
 cmds = ["php artisan config:clear", "php artisan route:clear"]

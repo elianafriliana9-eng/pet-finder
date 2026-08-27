@@ -1,4 +1,7 @@
-FROM php:8.3-cli-alpine
+FROM php:8.4-cli-alpine
+
+# Set environment variables for non-interactive composer
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Install system dependencies & PHP extensions
 RUN apk add --no-cache \
