@@ -329,16 +329,14 @@ Dokumen ini mencatat seluruh riwayat pengerjaan, implementasi modul, perubahan a
 - **Konfigurasi Otomatis Railway / Nixpacks**: Menyediakan `backend/nixpacks.toml` yang mengonfigurasi PHP 8.3, Composer, ekstensi database (MySQL, SQLite, PostgreSQL), dan start command otomatis tanpa konflik npm/Vite.
 - **Dukungan Docker Container**: Menyediakan `backend/Dockerfile` multi-stage berbasis `php:8.3-cli-alpine` siap deploy ke platform cloud modern apa pun (Railway, Render, Fly.io, VPS).
 
-**18. Standarisasi Ikon PWA Persegi (*Square 1:1*) & Dukungan Maskable Icon ([vite.config.ts](file:///Users/itsrtcorp/pet-finder/frontend/vite.config.ts), [index.html](file:///Users/itsrtcorp/pet-finder/frontend/index.html))**
-- **Mengatasi Ikon Fallback Huruf "S" pada Menu/Launchpad OS**:
-  - Memperbaiki ketidaksesuaian resolusi (*non-square aspect ratio* `1186x1326`) yang sebelumnya menyebabkan sistem operasi desktop (macOS/Windows) menolak ikon dan menampilkan huruf fallback default.
-  - Menghasilkan berkas ikon persegi presisi 1:1 menggunakan algoritma *LANCZOS centering*:
-    - `pwa-192x192.png` (`192x192`, `purpose: any`)
-    - `pwa-512x512.png` (`512x512`, `purpose: any`)
-    - `pwa-maskable-512x512.png` (`512x512`, `purpose: maskable` dengan *15% safe-zone margin* untuk launcher Android & macOS)
-    - `apple-touch-icon.png` (`180x180` untuk iOS Safari Home Screen)
-    - `favicon.png` (`64x64`)
-- **Aktivasi PWA Dev Mode & Tombol Pintas**: Mengaktifkan `devOptions: { enabled: true }` pada `vite-plugin-pwa` dan menambahkan tombol pintas *Install App* di header navigasi.
+**18. Standarisasi Suite Ikon PWA Multi-Resolusi & Maskable ([vite.config.ts](file:///Users/itsrtcorp/pet-finder/frontend/vite.config.ts), [index.html](file:///Users/itsrtcorp/pet-finder/frontend/index.html))**
+- **Mengatasi Ikon Fallback Huruf "S" pada Menu / Launchpad macOS & Windows**:
+  - Menghasilkan rangkaian ikon resmi StreetPet lengkap dalam format PNG persegi presisi (1:1) dan multi-resolusi W3C:
+    - Standard Icons: `64x64`, `128x128`, `192x192`, `256x256`, `384x384`, `512x512`
+    - Maskable Icons (Android & macOS Squircle Launcher): `192x192` & `512x512` dengan *12% safe padding*
+    - Apple Touch Icon: `180x180`
+    - Desktop Favicon Multi-Size: `favicon.ico` & `favicon.png`
+  - Mendaftarkan seluruh variasi dimensi di `manifest.webmanifest` sehingga browser desktop (Chrome/Edge di macOS) langsung merender ikon aplikasi asli tanpa jatuh ke fallback inisial huruf "S".
 
 **18. Perbaikan Tampilan & Kontras Tombol Aksi ([ReportDetailPage.tsx](file:///Users/itsrtcorp/pet-finder/frontend/src/pages/ReportDetailPage.tsx))**
 - Memperbaiki konflik CSS di mana class `.clay-card` menimpa warna background tombol aksi rescue (`bg-emerald-600`) dan feeding (`bg-amber-500`), yang sebelumnya menyebabkan warna tombol menjadi putih dengan teks putih.

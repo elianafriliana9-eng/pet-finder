@@ -11,7 +11,23 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
-      includeAssets: ['favicon.png', 'logo.png', 'pwa-icon.svg', 'pwa-192x192.png', 'pwa-512x512.png', 'pwa-maskable-512x512.png', 'apple-touch-icon.png', 'robots.txt', 'sitemap.xml'],
+      includeAssets: [
+        'favicon.ico',
+        'favicon.png',
+        'logo.png',
+        'pwa-icon.svg',
+        'pwa-64x64.png',
+        'pwa-128x128.png',
+        'pwa-192x192.png',
+        'pwa-256x256.png',
+        'pwa-384x384.png',
+        'pwa-512x512.png',
+        'pwa-maskable-192x192.png',
+        'pwa-maskable-512x512.png',
+        'apple-touch-icon.png',
+        'robots.txt',
+        'sitemap.xml'
+      ],
       manifest: {
         name: 'StreetPet — Rescue & Adopsi Hewan Jalanan',
         short_name: 'StreetPet',
@@ -25,8 +41,32 @@ export default defineConfig({
         categories: ['social', 'lifestyle', 'community'],
         icons: [
           {
+            src: '/pwa-64x64.png',
+            sizes: '64x64',
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: '/pwa-128x128.png',
+            sizes: '128x128',
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
             src: '/pwa-192x192.png',
             sizes: '192x192',
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: '/pwa-256x256.png',
+            sizes: '256x256',
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: '/pwa-384x384.png',
+            sizes: '384x384',
             type: 'image/png',
             purpose: 'any'
           },
@@ -35,6 +75,12 @@ export default defineConfig({
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any'
+          },
+          {
+            src: '/pwa-maskable-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'maskable'
           },
           {
             src: '/pwa-maskable-512x512.png',
