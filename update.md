@@ -325,7 +325,11 @@ Dokumen ini mencatat seluruh riwayat pengerjaan, implementasi modul, perubahan a
   - Bubble chat merender kartu lokasi interaktif lengkap dengan koordinat *Latitude/Longitude*.
   - Dilengkapi tombol aksi langsung: **"🗺️ Buka di Peta"** (terhubung ke peta Leaflet aplikasi) dan tautan eksternal ke Google Maps.
 - 💬 **Pengiriman Fleksibel**: Mendukung pengiriman teks saja, foto saja, lokasi GPS saja, atau kombinasi ketiganya secara serentak.
-**17. Standarisasi Ikon PWA Persegi (*Square 1:1*) & Dukungan Maskable Icon ([vite.config.ts](file:///Users/itsrtcorp/pet-finder/frontend/vite.config.ts), [index.html](file:///Users/itsrtcorp/pet-finder/frontend/index.html))**
+**17. Konfigurasi Deployment Backend & Multi-Cloud CI/CD ([nixpacks.toml](file:///Users/itsrtcorp/pet-finder/backend/nixpacks.toml), [Dockerfile](file:///Users/itsrtcorp/pet-finder/backend/Dockerfile))**
+- **Konfigurasi Otomatis Railway / Nixpacks**: Menyediakan `backend/nixpacks.toml` yang mengonfigurasi PHP 8.3, Composer, ekstensi database (MySQL, SQLite, PostgreSQL), dan start command otomatis tanpa konflik npm/Vite.
+- **Dukungan Docker Container**: Menyediakan `backend/Dockerfile` multi-stage berbasis `php:8.3-cli-alpine` siap deploy ke platform cloud modern apa pun (Railway, Render, Fly.io, VPS).
+
+**18. Standarisasi Ikon PWA Persegi (*Square 1:1*) & Dukungan Maskable Icon ([vite.config.ts](file:///Users/itsrtcorp/pet-finder/frontend/vite.config.ts), [index.html](file:///Users/itsrtcorp/pet-finder/frontend/index.html))**
 - **Mengatasi Ikon Fallback Huruf "S" pada Menu/Launchpad OS**:
   - Memperbaiki ketidaksesuaian resolusi (*non-square aspect ratio* `1186x1326`) yang sebelumnya menyebabkan sistem operasi desktop (macOS/Windows) menolak ikon dan menampilkan huruf fallback default.
   - Menghasilkan berkas ikon persegi presisi 1:1 menggunakan algoritma *LANCZOS centering*:
