@@ -148,7 +148,7 @@ export const ChatScreen: React.FC<ChatScreenProps> = ({
         ) : (
           <FlatList
             data={messages}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item, index) => (item?.id != null ? String(item.id) : String(index))}
             contentContainerStyle={styles.messageList}
             renderItem={({ item }) => {
               const isMe = item.sender_id === user.id;
@@ -206,9 +206,10 @@ export const ChatScreen: React.FC<ChatScreenProps> = ({
       ) : (
         <FlatList
           data={conversations}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item, index) => (item?.id != null ? String(item.id) : String(index))}
           contentContainerStyle={styles.convList}
           renderItem={({ item }) => (
+
             <TouchableOpacity
               style={[clayStyles.cardSoft, styles.convCard]}
               onPress={() => {

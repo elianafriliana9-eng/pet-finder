@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../api/client';
 import { useAuth } from '../context/AuthContext';
-import { Heart, AlertCircle, Building2, User, UserPlus, ShieldCheck } from 'lucide-react';
+import { Heart, AlertCircle, Building2, User, UserPlus, ShieldCheck, Eye, EyeOff } from 'lucide-react';
 import logoImg from '../assets/logo.png';
 
 export const RegisterPage: React.FC = () => {
@@ -10,11 +10,14 @@ export const RegisterPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
   const [phone, setPhone] = useState('');
   const [role, setRole] = useState<'reporter' | 'shelter'>('reporter');
   const [shelterName, setShelterName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -159,29 +162,50 @@ export const RegisterPage: React.FC = () => {
 
           <div>
             <label className="block text-xs font-bold text-slate-700 mb-1">Password (Min. 8 karakter) *</label>
-            <input
-              type="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3.5 py-2.5 clay-input text-xs font-medium text-slate-800"
-              required
-              minLength={8}
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full pl-3.5 pr-10 py-2.5 clay-input text-xs font-medium text-slate-800"
+                required
+                minLength={8}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-hidden transition"
+                aria-label={showPassword ? 'Sembunyikan password' : 'Tampilkan password'}
+              >
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
           </div>
 
           <div>
             <label className="block text-xs font-bold text-slate-700 mb-1">Konfirmasi Password *</label>
-            <input
-              type="password"
-              placeholder="••••••••"
-              value={passwordConfirmation}
-              onChange={(e) => setPasswordConfirmation(e.target.value)}
-              className="w-full px-3.5 py-2.5 clay-input text-xs font-medium text-slate-800"
-              required
-              minLength={8}
-            />
+            <div className="relative">
+              <input
+                type={showPasswordConfirmation ? 'text' : 'password'}
+                placeholder="••••••••"
+                value={passwordConfirmation}
+                onChange={(e) => setPasswordConfirmation(e.target.value)}
+                className="w-full pl-3.5 pr-10 py-2.5 clay-input text-xs font-medium text-slate-800"
+                required
+                minLength={8}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPasswordConfirmation(!showPasswordConfirmation)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-hidden transition"
+                aria-label={showPasswordConfirmation ? 'Sembunyikan konfirmasi password' : 'Tampilkan konfirmasi password'}
+              >
+                {showPasswordConfirmation ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
           </div>
+
 
           <button
             type="submit"

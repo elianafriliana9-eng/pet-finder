@@ -222,7 +222,7 @@ export const ReportDetailScreen: React.FC<ReportDetailScreenProps> = ({
             <View style={styles.thumbRow}>
               {images.map((img, idx) => (
                 <TouchableOpacity
-                  key={img.id || idx}
+                  key={img.id != null ? String(img.id) : `img-${idx}`}
                   style={[styles.thumbBox, activeImageIdx === idx && styles.thumbBoxActive]}
                   onPress={() => setActiveImageIdx(idx)}
                 >
@@ -231,6 +231,7 @@ export const ReportDetailScreen: React.FC<ReportDetailScreenProps> = ({
               ))}
             </View>
           )}
+
         </View>
 
         {/* Main Details Card */}
@@ -309,10 +310,11 @@ export const ReportDetailScreen: React.FC<ReportDetailScreenProps> = ({
             </View>
 
             {report.activities && report.activities.length > 0 ? (
-              report.activities.map((act) => (
-                <View key={act.id} style={styles.timelineItem}>
+              report.activities.map((act, idx) => (
+                <View key={act.id != null ? String(act.id) : `act-${idx}`} style={styles.timelineItem}>
                   <View style={styles.timelineDot} />
                   <View style={styles.timelineContent}>
+
                     <Text style={styles.timelineAction}>
                       {act.activity_type === 'fed'
                         ? 'Memberi Makan'

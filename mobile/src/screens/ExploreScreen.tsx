@@ -431,7 +431,7 @@ export const ExploreScreen: React.FC<ExploreScreenProps> = ({ onSelectReport }) 
           /* Multi-Pet List View */
           <FlatList
             data={filteredReports}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item, index) => (item?.id != null ? String(item.id) : String(index))}
             contentContainerStyle={styles.listContent}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => {
