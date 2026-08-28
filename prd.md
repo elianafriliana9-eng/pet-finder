@@ -18,6 +18,7 @@
 ### 2.1 Latar Belakang
 Populasi kucing dan anjing terlantar di area perkotaan sering kali memicu masalah kesejahteraan hewan dan risiko zoonosis. Di sisi lain, proses penyelamatan (*rescue*) dan adopsi saat ini masih bergantung pada grup media sosial informal yang tidak terstruktur, tanpa fitur pencarian berbasis geolokasi, serta rawan disalahgunakan oleh oknum pembiak/jual-beli hewan ilegal.
 
+
 ### 2.2 Visi & Nilai Keunggulan (UVP)
 Menyediakan platform web serba cepat, terbuka, dan ramah pengguna ponsel (*mobile-first*) untuk menghubungkan masyarakat yang menemukan hewan jalanan terlantar secara presisi berbasis lokasi dengan calon pengadopsi (*adopter*) serta shelter terverifikasi.
 

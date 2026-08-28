@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import api from '../api/client';
+import { Contributor } from '../types';
 import {
   Heart,
   MapPin,
@@ -16,11 +19,15 @@ import {
   Sparkles,
   Camera,
   MessagesSquare,
+  Trophy,
+  Medal,
+  Award,
 } from 'lucide-react';
 import heroPet from '../assets/hero-cat.webp';
 import logoImg from '../assets/logo.png';
 import { SponsoredBanner } from '../components/SponsoredBanner';
 import { useSEO } from '../hooks/useSEO';
+
 
 const tickerItems = [
   { icon: Soup, text: 'Rina memberi makan 3 kucing di Tebet' },
@@ -75,8 +82,20 @@ export const LandingPage: React.FC = () => {
     url: 'https://streetpet.org/',
   });
 
+  const { data: leaderboardData } = useQuery<{ status: string; data: Contributor[] }>({
+    queryKey: ['leaderboard'],
+    queryFn: async () => {
+      const res = await api.get('/leaderboard');
+      return res.data;
+    },
+    staleTime: 60000,
+  });
+
+  const contributors = leaderboardData?.data || [];
+
   return (
     <div className="min-h-screen pb-28 md:pb-16 flex flex-col bg-white overflow-x-hidden">
+
       {/* ============ HERO ============ */}
       <section className="relative px-4 pt-4 pb-10 md:pt-10 md:pb-16">
         {/* atmosphere */}
@@ -364,6 +383,54 @@ export const LandingPage: React.FC = () => {
           })}
         </div>
       </section>
+
+      {/* ============ COMMUNITY LEADERBOARD & BADGES ============ */}
+      {contributors.length > 0 && (
+        <section className="px-4 pb-12 md:pb-16">
+          <div className="max-w-6xl mx-auto space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 px-2">
+              <div>
+                <span className="px-3 py-1 rounded-full bg-lilac-100 text-lilac-900 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5">
+                  <Trophy className="w-3 h-3 text-lilac-600" />
+                  Penghargaan Relawan
+                </span>
+                <h3 className="font-display text-2xl sm:text-3xl font-black text-slate-900 mt-2">
+                  Warga & Relawan Paling Aktif
+                </h3>
+              </div>
+              <p className="text-xs text-slate-500 font-semibold max-w-sm">
+                Apresiasi untuk para pejuang jalanan yang rutin memberi makan, melapor, dan menyelamatkan anabul terlantar.
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {contributors.slice(0, 4).map((c, idx) => (
+                <div key={c.id} className="clay-card-soft clay-lift rounded-3xl p-5 relative overflow-hidden flex flex-col justify-between">
+                  <div className="flex items-start justify-between">
+                    <div className="w-12 h-12 rounded-2xl bg-brand-50 border border-brand-100 flex items-center justify-center font-black text-brand-700 text-lg">
+                      {c.name.charAt(0).toUpperCase()}
+                    </div>
+                    <span className="text-xs font-black text-slate-400">
+                      #{idx + 1}
+                    </span>
+                  </div>
+
+                  <div className="mt-4">
+                    <h4 className="font-extrabold text-slate-900 text-sm truncate">{c.name}</h4>
+                    <div className="mt-1.5 inline-block px-2.5 py-0.5 rounded-lg text-[10px] font-black bg-brand-100 text-brand-800 border border-brand-200">
+                      {c.badge}
+                    </div>
+                    <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 font-semibold">
+                      <span>{c.total_actions} Aksi Sosial</span>
+                      <span className="font-black text-brand-600">{c.points} Poin</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ============ BRAND PARTNER SPONSORSHIP ============ */}
       <section className="px-4 pb-10 md:pb-14">

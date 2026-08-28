@@ -27,7 +27,7 @@ export const ReportFlagModal: React.FC<ReportFlagModalProps> = ({
     setSubmitting(true);
     setError('');
 
-    try {
+    try {20
       await api.post('/moderation/flag', {
         report_id: reportId,
         reason,

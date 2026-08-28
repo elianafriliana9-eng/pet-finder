@@ -152,5 +152,20 @@ export interface Advertisement {
   created_at: string;
 }
 
+export interface Contributor {
+  id: number;
+  name: string;
+  role: UserRole;
+  avatar?: string;
+  badge: string;
+  badge_key: string;
+  points: number;
+  reports_count: number;
+  fed_count: number;
+  rescue_count: number;
+  total_actions: number;
+}
+
 export const TYPES_VERSION = '1.0.0';
 export default {};
+

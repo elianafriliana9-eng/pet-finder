@@ -37,6 +37,7 @@ Route::get('/shelters', [ShelterController::class, 'index']);
 Route::get('/shelters/{id}', [ShelterController::class, 'show']);
 Route::get('/ads', [AdvertisementController::class, 'index']);
 Route::post('/ads/{id}/click', [AdvertisementController::class, 'trackClick']);
+Route::get('/leaderboard', [ReportController::class, 'leaderboard']);
 
 // Authenticated Routes
 Route::middleware('auth:sanctum')->group(function () {

@@ -45,6 +45,11 @@ class User extends Authenticatable
         return $this->hasMany(AdoptionApplication::class, 'adopter_id');
     }
 
+    public function activities(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ReportActivity::class);
+    }
+
     public function isAdmin(): bool
     {
         return $this->role === 'admin';
@@ -60,3 +65,4 @@ class User extends Authenticatable
         return $this->role === 'reporter';
     }
 }
+

@@ -309,4 +309,58 @@ class ReportController extends Controller
 
         return $data;
     }
+
+    /**
+     * Community Leaderboard & Top Contributors Badge System
+     */
+    public function leaderboard(): \Illuminate\Http\JsonResponse
+    {
+        $users = \App\Models\User::where('role', '!=', 'admin')
+            ->withCount([
+                'reports',
+                'activities',
+                'activities as fed_count' => fn ($q) => $q->where('activity_type', 'fed'),
+                'activities as rescue_count' => fn ($q) => $q->whereIn('activity_type', ['secured', 'treated', 'adopted']),
+            ])
+            ->get()
+            ->map(function ($user) {
+                $totalPoints = ($user->reports_count * 10) + ($user->fed_count * 5) + ($user->rescue_count * 15);
+
+                $badge = 'Sahabat Anabul';
+                $badgeKey = 'supporter';
+                if ($user->rescue_count >= 1) {
+                    $badge = 'Pahlawan Rescue';
+                    $badgeKey = 'rescue_hero';
+                } elseif ($user->fed_count >= 2) {
+                    $badge = 'Street Feeder Teladan';
+                    $badgeKey = 'top_feeder';
+                } elseif ($user->reports_count >= 2) {
+                    $badge = 'Mata Komunitas (Scout)';
+                    $badgeKey = 'scout';
+                }
+
+                return [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'role' => $user->role,
+                    'avatar' => $user->avatar,
+                    'badge' => $badge,
+                    'badge_key' => $badgeKey,
+                    'points' => $totalPoints,
+                    'reports_count' => (int) $user->reports_count,
+                    'fed_count' => (int) $user->fed_count,
+                    'rescue_count' => (int) $user->rescue_count,
+                    'total_actions' => (int) ($user->reports_count + $user->activities_count),
+                ];
+            })
+            ->sortByDesc('points')
+            ->values()
+            ->take(10);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $users,
+        ]);
+    }
 }
+
